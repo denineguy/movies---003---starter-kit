@@ -1,4 +1,4 @@
-const createAutoComplete = ({ root }) => {
+const createAutoComplete = ({ root, renderOption }) => {
 root.innerHTML = `
     <label><b>Search for a Movie</b></label>
     <input class="input"/>
@@ -26,12 +26,9 @@ const onInput = async event => {
     dropdown.classList.add("is-active")
     for(let movie of movies) {
         const option = document.createElement('a');
-        const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
+        
         option.classList.add('dropdown-item');
-        option.innerHTML = `
-            <img src="${movie.Poster}"/>
-            ${movie.Title}
-        `;
+        option.innerHTML = renderOption(movie);
 
         option.addEventListener('click', () => {
             dropdown.classList.remove("is-active")
